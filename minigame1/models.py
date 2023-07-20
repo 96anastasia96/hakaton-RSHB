@@ -23,7 +23,7 @@ class FallingObject:
         self.image = pygame.transform.scale(pygame.image.load(image_path), (OBJECT_SIZE, OBJECT_SIZE))
 
     def move(self):
-        self.y += random.randint(1, 5)
+        self.y += random.randint(1, 3)
 
     def draw(self, window):
         window.blit(self.image, (self.x, self.y))
@@ -69,7 +69,7 @@ def start_the_game():
             player.move(5)
 
         rand_object = random.randint(1, 3)
-        if random.randint(1, 20) == 1:
+        if random.randint(1, 50) == 1:
             if rand_object == 1:
                 objects.append(FallingObject(random.randint(OBJECT_SIZE, WINDOW_WIDTH - OBJECT_SIZE), -OBJECT_SIZE,
                                              RIGHT_OBJECT_IMAGE, 4))
@@ -116,7 +116,7 @@ def start_the_game():
 
 pygame.init()
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-description = 'В этом мини-игре вам нужно управлять роботом и собрать 20 падающих овощей.'
+description = 'В этой мини-игре вам нужно управлять роботом и собрать 20 падающих овощей.'
 rules = 'За каждый собранный овощ вы получаете очки: зелёный - 2, переспелый - 1, спелый - 4. В конце раунда ваши очки умножаются на 100'
 menu = pygame_menu.Menu('Мини-Игра 1', WINDOW_WIDTH, WINDOW_HEIGHT, theme=pygame_menu.themes.THEME_BLUE)
 menu.add.label(description, max_char=-1, font_size=18)
