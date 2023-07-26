@@ -1,4 +1,6 @@
 from django.db import models
+from django.http import JsonResponse
+import json
 
 # Create your models here.
 # !!! Возможно, класс растений не нужен вовсе !!!
@@ -75,7 +77,7 @@ class Player(models.Model):  # Класс игрока
         else:
             raise ValueError('На вашем счёте недостаточно средств для возврата кредита!')
 
-    def add_to_bank_account(self, total):  # Добавление выйгранных монет в кошелёк игрока
+    def add_to_bank_account(self, total=int):  # Добавление выйгранных монет в кошелёк игрока
         self.bank_account += total
         self.save()
 
@@ -88,3 +90,20 @@ class PlayerEquipment(models.Model):  # Промежуточный класс
 class PlayerGame(models.Model):  # Промежуточный класс
     equipment = models.ForeignKey(Game, on_delete=models.CASCADE)
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
+
+
+class RobotCard(models.Model):  # Класс карточек роботов
+    name = models.CharField(max_length=50, unique=True)
+    description = models.CharField(max_length=500)
+    price = models.IntegerField()
+    image_path = models.CharField(max_length=500)  # в БД сохраняется относительный путь до файла
+
+    def get_data(self):  # возврат данных
+
+        data = {
+            'name': self.name,
+            'description': self.description,
+            'price': self.price,
+            'image_path': self.image_path,
+        }
+        return JsonResponse(data)

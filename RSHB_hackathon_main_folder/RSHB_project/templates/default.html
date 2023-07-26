@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ flatpage.title }}</title>
+</head>
+<body>
+{% for robot_card in robot_card_list %}
+    {{ robot_card.get_data }}
+{% endfor %}
+{{ flatpage.content }}
+</body>
+</html>
